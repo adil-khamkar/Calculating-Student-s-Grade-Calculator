@@ -1,0 +1,69 @@
+import java.util.*;
+class Student {
+    String name;
+    int rollNo;
+    int marks;
+    char grade;
+    Student(String name, int rollNo, int marks) {
+        this.name = name;
+        this.rollNo = rollNo;
+        this.marks = marks;
+        this.grade = calculateGrade();
+    }
+    char calculateGrade() {
+        if (marks >= 90) {
+            return 'A';
+        }
+        else if (marks >= 75){
+            return 'B';
+        } 
+        else if (marks >= 60) {
+            return 'C';
+        }
+        else if (marks >= 40) {
+            return 'D';
+        }
+        else {
+            return 'F';
+        }
+    }
+    public String toString() {
+        return "Name: " + name + ", Roll No: " + rollNo + ", Marks: " + marks + ", Grade: " + grade;
+    }
+}
+class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        List<Student> studentList = new ArrayList<>();
+        Map<Integer, Student> studentMap = new HashMap<>();
+
+        System.out.print("Enter number of students: ");
+        int n = sc.nextInt();
+        for (int i = 0; i < n; i++) {
+            System.out.println("\nEnter details for student " + (i + 1));
+            System.out.print("Name: ");
+            String name = sc.next();
+            System.out.print("Roll No: ");
+            int roll = sc.nextInt();
+            System.out.print("Marks: ");
+            int marks = sc.nextInt();
+
+            Student s = new Student(name, roll, marks);
+            studentList.add(s);
+            studentMap.put(roll, s);
+        }
+        System.out.println("\n--- Student Report ---");
+        for (Student s : studentList) {
+            System.out.println(s);
+        }
+        System.out.print("\nEnter roll number to view single student report: ");
+        int searchRoll = sc.nextInt();
+        if (studentMap.containsKey(searchRoll)) {
+            System.out.println("Student Found: " + studentMap.get(searchRoll));
+        } else {
+            System.out.println("Student not found!");
+        }
+        sc.close();
+    }
+}
